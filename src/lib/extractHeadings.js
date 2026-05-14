@@ -2,25 +2,21 @@ export function extractHeadings(markdown) {
   const lines = markdown.split("\n");
 
   const headings = lines
-    .filter((line) => /^#{1,6}\s/.test(line))
-    .map((line) => {
-      const level = line.match(/^#+/)[0].length;
-
-      return {
-        level,
-        text: line.replace(/^#+\s*/, ""),
-        children: [],
-      };
-    });
+      .filter((line) => /^#{1,6}\s/.test(line))
+      .map((line) => {
+        const level = line.match(/^#+/)[0].length;
+        return {
+          level,
+          text: line.replace(/^#+\s*/, ""),
+          children: [],
+        };
+      });
 
   const tree = [];
   const stack = [];
 
   for (const heading of headings) {
-    while (
-      stack.length &&
-      stack[stack.length - 1].level >= heading.level
-    ) {
+    while (stack.length && stack[stack.length - 1].level >= heading.level) {
       stack.pop();
     }
 
@@ -33,5 +29,5 @@ export function extractHeadings(markdown) {
     stack.push(heading);
   }
 
-  return tree;
+  return { tree }
 }
