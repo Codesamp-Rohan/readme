@@ -7,34 +7,46 @@ import { extractHeadings } from "@/lib/extractHeadings";
 
 export default function Sidebar() {
   const markdown = useEditorStore((state) => state.markdown);
+  const filename = useEditorStore((state) => state.filename);
+  const setFilename = useEditorStore((state) => state.setFilename)
 
   const headings = useMemo(() => {
     return extractHeadings(markdown);
   }, [markdown]);
+    const { tree } = useMemo(() => extractHeadings(markdown), [markdown]);
 
-  return (
-    <aside className="hidden w-64 border-r border-border bg-[--foreground] p-4 lg:block">
+    return (
+    <aside className="hidden w-64 border-r border-[var(--border)] bg-[--foreground] p-4 lg:block">
       <div className="mb-6">
-        <h2 className="text-sm font-semibold">Outline</h2>
-
-        <p className="text-xs text-muted-foreground">
-          Document structure.
-        </p>
+          <input placeholder="file name..." value={filename} onChange={(e) => setFilename(e.target.value)} className="bg-transparent rounded-lg text-[--text-primary] text-[20px] text-bold outline-[--ring] w-full"/>
       </div>
-
-      <div className="space-y-2">
-        {headings.map((heading, index) => (
-          <div
-            key={index}
-            style={{
-              paddingLeft: `${(heading.level - 1) * 12}px`,
-            }}
-            className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground"
-          >
-            - {heading.text}
-          </div>
-        ))}
-      </div>
+        <div className="sidebar-content">
+            {tree.map((heading, index) => (
+                <HeadingItem key={index} heading={heading} />
+            ))}
+        </div>
     </aside>
   );
+}
+
+function HeadingItem({ heading }) {
+    return (
+        <div className="space-y-2">
+            <div
+                style={{
+                    paddingLeft: `${(heading.level - 1) * 4}px`,
+                }}
+                className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground truncate"
+            >
+                - {heading.text}
+            </div>
+            {heading.children.length > 0 && (
+                <div className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground mt-0-important">
+                    {heading.children.map((child, index) => (
+                        <HeadingItem key={index} heading={child} />
+                    ))}
+                </div>
+            )}
+        </div>
+    )
 }

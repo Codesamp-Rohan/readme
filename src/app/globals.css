@@ -47,7 +47,7 @@
 
   .dark {
     --background: #09090b;
-    --foreground: #fafafa;
+    --foreground: #101013;
 
     --card: #09090b;
     --card-foreground: #fafafa;
@@ -104,6 +104,7 @@ h1 {
   font-size: 1.8rem !important;
   font-weight: 700 !important;
   color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border) !important;
 }
 
 h2 {
@@ -182,20 +183,17 @@ blockquote {
 }
 
 code {
-  background: var(--secondary) !important;
   color: var(--text-primary) !important;
-  padding: 0.15rem 0.35rem !important;
-  border-radius: 0.35rem !important;
   font-size: 0.82rem !important;
 }
 
 pre {
-  background: var(--secondary) !important;
-  color: var(--text-primary) !important;
+  background: var(--background) !important;
   padding: 0.9rem !important;
   border-radius: 0.8rem !important;
   overflow-x: auto !important;
   margin: 0.8rem 0 !important;
+  border: 1px solid var(--border) !important;
 }
 
 hr {
@@ -216,7 +214,6 @@ a:hover {
 }
 
 .preview-container :is(h1, h2, h3) {
-    border-bottom: 1px solid var(--border) !important;
     margin-bottom: 8px !important;
     padding-bottom: 8px !important;
     color: var(--text-primary) !important;
@@ -224,4 +221,54 @@ a:hover {
 
 .preview-container :is(h4, h5, h6) {
     padding-bottom: 8px !important;
+}
+
+table {
+  width: 100%; /* Make the table take full width */
+  border-collapse: collapse; /* Remove spacing between table cells */
+  border: 1px solid #ccc; /* Add a border around the entire table */
+  font-size: 0.875rem; /* Set a readable font size */
+  background-color: #f9f9f9; /* Light background for the table */
+  margin-bottom: 16px;
+}
+
+thead {
+  background-color: #f3f3f3; /* Apply a slightly darker background for the table header */
+}
+
+th, td {
+  border: 1px solid var(--border); /* Add a border to all table cells */
+  padding: 0.75rem; /* Add padding inside table cells */
+  text-align: left; /* Align table content to the left */
+}
+
+th {
+  background-color: var(--secondary); /* Distinguish headers with a solid background color */
+  font-weight: bold; /* Emphasize header text */
+  color: var(--text-primary); /* Header text color */
+}
+td {
+  color: var(--text-primary);
+  background-color: var(--background);
+}
+
+tr:nth-child(even) {
+  background-color: var(--primary); /* Alternate row background for better readability */
+}
+
+tr:hover {
+  background-color: var(--secondary); /* Highlight the row on hover */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+caption {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+}
+
+.mt-0-important {
+  margin-top: 0 !important;
 }
