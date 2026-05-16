@@ -1,8 +1,7 @@
 import { create } from "zustand";
 
 export const useEditorStore = create((set) => ({
-  markdown: `
-  # Markdown syntax guide
+  markdown: `# Markdown syntax guide
 
 ## Headers
 

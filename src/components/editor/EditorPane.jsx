@@ -7,7 +7,7 @@ export default function EditorPane({ editorRef, onScroll }) {
   const setMarkdown = useEditorStore((state) => state.setMarkdown);
 
   return (
-    <section className="flex-1 border-r border-[var(--border)] bg-background">
+    <section className="flex-1 border-r border-[var(--border)] bg-background h-[calc(100%-60px)]">
       <textarea
           ref={editorRef}
           onScroll={onScroll}

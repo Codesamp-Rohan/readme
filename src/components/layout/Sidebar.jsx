@@ -18,10 +18,7 @@ export default function Sidebar() {
     return (
     <aside className="hidden w-64 border-r border-[var(--border)] bg-[--foreground] p-4 lg:block">
       <div className="mb-6">
-          <input placeholder="file name..." value={filename} onChange={(e) => setFilename(e.target.value)} className="bg-transparent rounded-lg text-[--text-primary] text-[20px] text-bold outline-[--border]"/>
-          <p className="text-xs text-muted-foreground">
-          Document structure.
-        </p>
+          <input placeholder="file name..." value={filename} onChange={(e) => setFilename(e.target.value)} className="bg-transparent rounded-lg text-[--text-primary] text-[20px] text-bold outline-[--ring] w-full"/>
       </div>
         <div className="sidebar-content">
             {tree.map((heading, index) => (
@@ -37,9 +34,9 @@ function HeadingItem({ heading }) {
         <div className="space-y-2">
             <div
                 style={{
-                    paddingLeft: `${(heading.level - 1) * 16}px`,
+                    paddingLeft: `${(heading.level - 1) * 4}px`,
                 }}
-                className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground"
+                className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground truncate"
             >
                 - {heading.text}
             </div>

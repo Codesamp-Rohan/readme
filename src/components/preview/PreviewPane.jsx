@@ -10,7 +10,7 @@ export default function PreviewPane({ previewRef }) {
 
   return (
     <section className="hidden w-1/2 bg-muted/30 xl:block bg-[--foreground]">
-      <div ref={previewRef} className="h-full overflow-auto">
+      <div ref={previewRef} className="h-full overflow-auto  h-[calc(100%-60px)]">
         <div
           className="preview-container max-w-none p-4"
         >
