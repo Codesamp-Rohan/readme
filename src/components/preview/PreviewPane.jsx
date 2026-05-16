@@ -9,8 +9,8 @@ export default function PreviewPane({ previewRef }) {
   const markdown = useEditorStore((state) => state.markdown);
 
   return (
-    <section className="hidden w-1/2 bg-muted/30 xl:block bg-[--foreground]">
-      <div ref={previewRef} className="h-full overflow-auto  h-[calc(100%-60px)]">
+    <section className="hidden w-1/2 bg-muted/30 xl:block bg-[--foreground] h-[calc(100%-60px)]">
+      <div ref={previewRef} className="h-full overflow-auto">
         <div
           className="preview-container max-w-none p-4"
         >
