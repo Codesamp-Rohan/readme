@@ -72,7 +72,9 @@ alert(message);
 This web site is using \`markedjs/marked\`.`
 ,
     filename: 'filename.md',
-
-  setMarkdown: (markdown) => set({markdown}),
-    setFilename: (filename) => set({filename})
+    isAILoading: false,
+    
+    setMarkdown: (markdown) => set({markdown}),
+    setFilename: (filename) => set({filename}),
+    setIsAILoading: (value) => set({ isAILoading: value }),
 }));
