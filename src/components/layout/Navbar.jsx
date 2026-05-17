@@ -4,6 +4,7 @@ import { Sparkles } from "lucide-react";
 import {useEditorStore} from "@/store/editorStore";
 import {ThemeToggle} from "@/components/layout/ThemeToggle";
 import { askAI } from "@/lib/ai";
+import { useSettingsStore } from "@/store/settingsStore";
 
 export default function Navbar() {
     const markdown = useEditorStore((state) => state.markdown);
@@ -11,6 +12,18 @@ export default function Navbar() {
     const isAILoading = useEditorStore((state) => state.isAILoading);
     const setIsAILoading = useEditorStore((state) => state.setIsAILoading);
     const filename = useEditorStore((state) => state.filename);
+    const showSettings = useEditorStore((state) => state.showSettings);
+    const setShowSettings = useEditorStore((state) => state.setShowSettings);
+    const geminiKey = useSettingsStore((state) => state.geminiKey);
+
+    const checkIfKeyExists = async () => {
+        if(!geminiKey) {
+            alert("Please add your Gemini API key in settings.");
+            setShowSettings(true);
+            return;
+        }
+        await improveMarkdown();
+    }
 
     const improveMarkdown = async () => {
       console.log('Clicked...')
@@ -20,7 +33,7 @@ export default function Navbar() {
           Improve this markdown professionally.
           Return ONLY markdown.
           ${markdown}
-          `);
+          `, geminiKey);
           const cleanedText = text.replace(/```markdown/g, "").replace(/```md/g, "").replace(/```/g, "").trim();
           setMarkdown(cleanedText);
         } catch (error) {
@@ -57,14 +70,15 @@ export default function Navbar() {
         </div>
       </div>
         <span className="flex gap-2">
-           <button onClick={improveMarkdown} className="px-3 py-1 rounded-xl border text-[--text-primary] border-[var(--border)] hover:bg-muted transition-colors bg-[--foreground] disabled:cursor-not-allowed disabled:opacity-50">
-        {isAILoading ? "✨ Improving..." : "✨ Improve"}
+           <button onClick={checkIfKeyExists} className="px-3 py-1 rounded-xl border text-[--text-primary] border-[var(--border)] hover:bg-muted transition-colors bg-[--foreground] disabled:cursor-not-allowed disabled:opacity-50 hover:translate-y-[-1px] transition-[0.3s]">
+        {isAILoading ? "✨ Generating..." : "✨ Generate"}
         </button>
+            <button onClick={() => setShowSettings(!showSettings)} className="px-3 py-1 rounded-xl border text-[--text-primary] border-[var(--border)] hover:bg-muted transition-colors bg-[--foreground] disabled:cursor-not-allowed disabled:opacity-50 hover:translate-y-[-1px] transition-[0.3s]">Settings</button>
             <ThemeToggle />
-        <button onClick={() => setMarkdown('')} className="rounded-xl  bg-[#ff000033] text-[#ff0000] px-4 py-1 text-sm transition-all hover:bg-accent">
+        <button onClick={() => setMarkdown('')} className="rounded-xl  bg-[#ff000033] text-[#ff0000] px-4 py-1 text-sm transition-all hover:bg-accent hover:translate-y-[-1px] transition-[0.3s]">
             Clear
         </button>
-      <button onClick={exportMarkdown} className="rounded-xl bg-black text-white px-4 py-1 text-sm transition-all bg-primary hover:bg-[var(--primary-foreground)] hover:border-[var(--primary)] border-[var(--primary)]">
+      <button onClick={exportMarkdown} className="rounded-xl bg-black text-white px-4 py-1 text-sm transition-all bg-primary hover:bg-[var(--card-foreground)] hover:border-[var(--accent-foreground)] border-[var(--primary)] hover:translate-y-[-1px] transition-[0.3s]">
         Export
       </button>
         </span>

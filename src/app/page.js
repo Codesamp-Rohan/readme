@@ -4,10 +4,13 @@ import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
 import EditorPane from "@/components/editor/EditorPane";
 import PreviewPane from "@/components/preview/PreviewPane";
-import {useRef} from "react";
+import {useRef, useState} from "react";
+import SettingsModal from '@/components/ui/SettingsModal'
+import {useEditorStore} from '@/store/editorStore'
 
 export default function Home() {
-
+    const showSettings = useEditorStore((state) => state.showSettings)
+    const setShowSettings = useEditorStore((state) => state.setShowSettings)
     const editorRef = useRef(null)
     const previewRef = useRef(null)
 
@@ -32,6 +35,9 @@ export default function Home() {
         <Sidebar />
       <div className="flex flex-col w-full h-[100dvh]">
         <Navbar />
+          {showSettings && (
+              <SettingsModal onClose={() => setShowSettings(false)} />
+          )}
         <div className="flex w-full h-full">
           <EditorPane editorRef={editorRef} onScroll={handleEditorScroll}/>
           <PreviewPane previewRef={previewRef} />
