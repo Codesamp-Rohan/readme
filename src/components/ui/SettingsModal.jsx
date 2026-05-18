@@ -13,16 +13,20 @@ export default function SettingsModal({onClose}) {
     const activeKeyId = useSettingsStore((state) => state.activeKeyId);
     const setActiveKey = useSettingsStore((state) => state.setActiveKey);
     const [keyVisible, setKeyVisible] = useState(false);
-    const [copied, setCopied] = useState(false);
+    const [copiedId, setCopiedId] = useState(null);
     const [name, setName] = useState("");
     const [value, setValue] = useState("");
 
-    const copyToClipboard = () => {
-        setCopied(true);
-        navigator.clipboard.writeText(value);
-        setInterval(() => {
-            setCopied(false)
-        }, [500])
+    const copyToClipboard = async (text, id) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedId(id);
+            setTimeout(() => {
+                setCopiedId(null);
+            }, 1500);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -53,22 +57,11 @@ export default function SettingsModal({onClose}) {
                             <EyeOff className="w-5 h-5 text-[--text-secondary]" />
                         )}
                     </button>
-                    <button onClick={copyToClipboard} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--primary)" }}>
-                        {copied ? (
-                        <Check
-                            size={18}
-                            className="text-green-500"
-                        />
-                    ) : (
-                        <Copy
-                            size={18}
-                            className="text-[--text-secondary]"
-                        />
-                    )}
-
-        </button>
 
                 </span>
+                <a href="https://www.merge.dev/blog/gemini-api-key" target="_blank" rel="noopener noreferrer" className="relative !text-xs !font-mono !text-[var(--text-muted)] !underline ml-2">
+                    Know about Gemini API key?
+                </a>
 
                 <button
                    onClick={() => {
@@ -103,6 +96,19 @@ export default function SettingsModal({onClose}) {
       </div>
 
       <div className="flex gap-2">
+        <button onClick={() => copyToClipboard(key.key, key.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--primary)" }}>
+                        {copiedId === key.id ? (
+                        <Check
+                            size={18}
+                            className="text-green-500"
+                        />
+                    ) : (
+                        <Copy
+                            size={18}
+                            className="text-[--text-secondary]"
+                        />
+                    )}
+        </button>
         <button
           onClick={() =>
             setActiveKey(key.id)
