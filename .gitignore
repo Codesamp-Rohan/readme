@@ -45,3 +45,4 @@ src.zip
 .idea/
 CLAUDE.md
 AGENTS.md
+.agents/skills/neon-postgres
