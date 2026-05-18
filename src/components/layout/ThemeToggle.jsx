@@ -20,7 +20,7 @@ export function ThemeToggle() {
             onClick={() =>
                 setTheme(theme === "dark" ? "light" : "dark")
             }
-            className="flex h-fill w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--secondary)] transition-all hover:scale-105"
+            className="flex h-fill w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--secondary)] transition-all hover:scale-105"
         >
             {theme === "light" ? (
                 <Sun size={18}/>
