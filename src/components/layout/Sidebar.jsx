@@ -36,12 +36,12 @@ function HeadingItem({ heading }) {
                 style={{
                     paddingLeft: `${(heading.level - 1) * 4}px`,
                 }}
-                className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground truncate"
+                className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-[var(--dark-foreground)] hover:text-foreground truncate cursor-pointer"
             >
                 - {heading.text}
             </div>
             {heading.children.length > 0 && (
-                <div className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors hover:bg-accent hover:text-foreground mt-0-important">
+                <div className="rounded-lg px-2 py-1 text-sm text-[--text-muted] transition-colors mt-0-important">
                     {heading.children.map((child, index) => (
                         <HeadingItem key={index} heading={child} />
                     ))}
