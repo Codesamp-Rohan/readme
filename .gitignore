@@ -42,7 +42,7 @@ next-env.d.ts
 
 src.zip
 
-.idea/
+.idea
 CLAUDE.md
 AGENTS.md
-.agents/skills/neon-postgres
+.agents
